@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="User"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-10-26 05:15:01 PM"/>
+        <attribute name="created" value="VXNlcjtERVNLVE9QLUkxVkdVRVI7MjAyMy0wOS0xNTswODoxNjowOSBBTTsyNzg4"/>
+        <attribute name="edited" value="VXNlcjtERVNLVE9QLUkxVkdVRVI7MjAyMy0xMC0yNjswNToxNTowMSBQTTsxNTsyOTQ2"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="Status, Nama" type="String" array="False" size=""/>
+            <declare name="TotalPembelian, Elektronik, Sembako, ATK, TotalBelanja" type="Integer" array="False" size=""/>
+            <declare name="Diskon, Bayar, ATKSetelahDiskon, SembakoSetelahDiskon, ElektronikSetelahDiskon, TotalDiskonHarian" type="Real" array="False" size=""/>
+            <input variable="Nama"/>
+            <output expression="&quot;Masukan Harga Belanja Elektronik&quot;" newline="True"/>
+            <input variable="Elektronik"/>
+            <assign variable="ElektronikSetelahDIskon" expression="0.1*Elektronik"/>
+            <output expression="&quot;Masukan Harga Belanja Sembako&quot;" newline="True"/>
+            <input variable="Sembako"/>
+            <assign variable="SembakoSetelahDiskon" expression="0.2*Sembako"/>
+            <output expression="&quot;Masukan Harga Belanja ATK&quot;" newline="True"/>
+            <input variable="ATK"/>
+            <assign variable="ATKSetelahDiskon" expression="0.05*ATK"/>
+            <assign variable="TotalBelanja" expression="Elektronik + Sembako + ATK"/>
+            <output expression="&quot;Total Belanja Sebelum Diskon : &quot;&amp;TotalBelanja" newline="True"/>
+            <assign variable="TotalDiskonHarian" expression="ElektronikSetelahDiskon + SembakoSetelahDiskon + ATKSetelahDiskon"/>
+            <output expression="&quot;Promo Diskon Harian yang didapat : &quot;&amp; TotalDiskonHarian" newline="True"/>
+            <assign variable="TotalPembelian" expression="TotalBelanja-TotalDiskonHarian"/>
+            <output expression="&quot;Total Belanja Stelah Diskon Harian : &quot;&amp;TotalPembelian" newline="True"/>
+            <output expression="&quot;Masukan Level Keanggotaan&quot;" newline="True"/>
+            <input variable="status"/>
+            <if expression="Status = &quot;anggota platinum&quot;">
+                <then>
+                    <if expression="TotalPembelian &gt; 250000">
+                        <then>
+                            <assign variable="Diskon" expression="0.25 * TotalPembelian"/>
+                        </then>
+                        <else>
+                            <assign variable="Diskon" expression="0.15 * TotalPembelian"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <if expression="status = &quot;anggota gold&quot;">
+                        <then>
+                            <if expression="TotalPembelian &gt; 200000">
+                                <then>
+                                    <assign variable="Diskon" expression="0.2 * TotalPembelian"/>
+                                </then>
+                                <else>
+                                    <assign variable="Diskon" expression="0.1* TotalPembelian"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <if expression="status = &quot;anggota silver&quot;">
+                                <then>
+                                    <if expression="TotalPembelian &gt; 100000">
+                                        <then>
+                                            <assign variable="Diskon" expression="0.1 * TotalPembelian"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="Diskon" expression="0.05 * TotalPembelian"/>
+                                        </else>
+                                    </if>
+                                </then>
+                                <else>
+                                    <assign variable="Diskon" expression="0*TotalPembelian"/>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <assign variable="Bayar" expression="TotalPembelian-Diskon"/>
+            <output expression="&quot;Total Pembelian: &quot;&amp; TotalPembelian &amp;&quot; Diskon : &quot;&amp; Diskon &amp;&quot; Jumlah pembayaran : &quot; &amp;Bayar" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
